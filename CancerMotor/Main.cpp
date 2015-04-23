@@ -119,7 +119,7 @@ int main()
 
 		if (Input::isKeyPressed(Input::Space))
 			physz->collision = true;
-
+		//kokeilua asd
 		
 		
 
