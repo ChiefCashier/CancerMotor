@@ -1,0 +1,28 @@
+﻿Build started 27.4.2015 13:23:42.
+     1>Project "C:\Users\tti13sjoni-petteril\Desktop\CancerMotor\CancerMotor\CancerMotor.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\tti13sjoni-petteril\Desktop\CancerMotor\Debug\CancerMotor.exe" /INCREMENTAL /NOLOGO FreeImaged.lib LibJXR.lib glew32d.lib glew32sd.lib opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\tti13sjoni-petteril\Desktop\CancerMotor\Debug\CancerMotor.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /ENTRY:"mainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\tti13sjoni-petteril\Desktop\CancerMotor\Debug\CancerMotor.lib" /MACHINE:X86 Debug\Image.obj
+         Debug\Input.obj
+         Debug\SystemManager.obj
+         Debug\Window.obj
+         Debug\Component.obj
+         Debug\Main.obj
+         Debug\GameObject.obj
+         Debug\Object.obj
+         Debug\ObjectLoader.obj
+         Debug\Physics.obj
+         Debug\PhysicsSystem.obj
+         Debug\Renderable.obj
+         Debug\RenderingContext.obj
+         Debug\RenderingSystem.obj
+         Debug\Resource.obj
+         Debug\ResourceLoader.obj
+         Debug\ResourceManager.obj
+         Debug\Transformable.obj
+         Debug\WriteToFile.obj
+         CancerMotor.vcxproj -> C:\Users\tti13sjoni-petteril\Desktop\CancerMotor\Debug\CancerMotor.exe
+     1>Done Building Project "C:\Users\tti13sjoni-petteril\Desktop\CancerMotor\CancerMotor\CancerMotor.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.92
