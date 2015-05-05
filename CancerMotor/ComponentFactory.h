@@ -41,10 +41,11 @@ public:
 	{
 		Physics* temp = new Physics(ID);
 		ID++;
-		temp->SetElasticity(0.9);
+		temp->SetElasticity(1.0);
 		temp->SetForces(Vector3<float>(0.0f, 0.0f, 0.0f));
 		temp->SetMass(10);
 		temp->SetSpeed(Vector3<float>(0.0f, 0.0f, 0.0f));
+		temp->SetAngularSpeed(Vector3<float>(0.0f, 0.0f, 0.0f));
 		asd->AddPhysicsComponent(temp);
 		return temp;
 	};

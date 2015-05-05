@@ -19,7 +19,7 @@ bool Input::isKeyPressed(Key key)
 	int vkey = 0;
 	switch (key)
 	{
-	default:                   vkey = 0;             break;
+	default:                vkey = 0;             break;
 	case Input::A:          vkey = 'A';           break;
 	case Input::B:          vkey = 'B';           break;
 	case Input::C:          vkey = 'C';           break;

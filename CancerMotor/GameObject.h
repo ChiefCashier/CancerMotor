@@ -26,6 +26,17 @@ public:
 		component->AddParent(this);
 	};
 
+	void DeleteComponent(Component* component)
+	{
+		ComponentMap::const_iterator pos = Components.find(&typeid(*component));
+		if (pos == Components.end())
+			return;
+					
+		pos->second->DeleteParent();
+		//delete pos->second;
+		Components.erase(pos->first);
+		
+	};
 
 	template<typename T>
 	T* GetComponent()

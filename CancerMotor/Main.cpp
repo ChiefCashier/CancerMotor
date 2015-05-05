@@ -25,7 +25,7 @@ int main()
 
 
 	RenderingSystem* RS = new RenderingSystem(rendContext);
-	PhysicsSystem* PS = new PhysicsSystem(90.81);
+	PhysicsSystem* PS = new PhysicsSystem(98.1);
 
 	SM->AddSystem(RS);
 	SM->AddSystem(PS);
@@ -33,42 +33,52 @@ int main()
 	LARGE_INTEGER StartingTime, EndingTime, ElapsedMilliseconds;
 	LARGE_INTEGER Frequency;
 
-	GameObject* obj = new GameObject("BOX_X.obj");
+	GameObject* obj = new GameObject("pallo.obj");
 	GameObject* obj2 = new GameObject("pallo.obj");
-
+	GameObject* obj3 = new GameObject("pallo.obj");
+	//
 	Renderable* rendComp = ComponentFactory::CreateRenderable("pallo.obj", "sample.png");
 	Renderable* rendComp2 = ComponentFactory::CreateRenderable("pallo.obj", "tribaltatuointi.png");
-
-
-	Physics* physz = ComponentFactory::CreatePhysicsComponent(PS);
+	Renderable* rendComp3 = ComponentFactory::CreateRenderable("pallo.obj", "tribaltatuointi.png");
+	//
+	Physics* physz1 = ComponentFactory::CreatePhysicsComponent(PS);
 	Physics* physz2 = ComponentFactory::CreatePhysicsComponent(PS);
-
+	Physics* physz3 = ComponentFactory::CreatePhysicsComponent(PS);
+	//
 	Transformable* transComp = ComponentFactory::CreateTransformable();
 	Transformable* transComp2 = ComponentFactory::CreateTransformable();
+	Transformable* transComp3 = ComponentFactory::CreateTransformable();
 
 	
-	physz2->SetMass(5);
-	physz->SetMass(2.5);
-	physz->SetElasticity(0.6);
-	physz->SetForces(Vector3<float>(1000000.0f, 1000000.0f, 0.0f));
-	physz2->SetForces(Vector3<float>(-1000000.0f, -1000000.0f, 0.0f));
-	obj->AddComponent(rendComp2);
+	physz2->SetMass(5.0);
+	physz1->SetAngularSpeed(Vector3<float>(0,100,0));
+
+	physz2->SetElasticity(0.5);
+	physz1->SetElasticity(0.5);
+	physz3->SetElasticity(0.5);
+	//
+	//
+	obj->AddComponent(rendComp);
 	obj->AddComponent(transComp);
-
-	obj2->AddComponent(rendComp);
+	obj->AddComponent(physz1);
+	
+	obj2->AddComponent(rendComp2);
 	obj2->AddComponent(transComp2);
-
-	obj->AddComponent(physz);
 	obj2->AddComponent(physz2);
-
-
-	transComp2->SetOrigin(100, 50, -200.0f);
+	
+	obj3->AddComponent(rendComp3);
+	obj3->AddComponent(transComp3);
+	//obj3->AddComponent(physz3);
+	//
+	transComp3->SetOrigin(-100, 0, -200.0f);
+	transComp2->SetOrigin(100, 0, -200.0f);
 	transComp->SetOrigin(0, 0, -200.0f);
-
-	int x = 0;
-
+	//
+	//
 	RS->Draw(obj);
 	RS->Draw(obj2);
+	RS->Draw(obj3);
+	bool boool = false;
 
 	while (true)
 	{
@@ -84,31 +94,30 @@ int main()
 		
 		
 		if (Input::isKeyPressed(Input::W))
-			physz->SetForces(Vector3<float>(0.0f, 4000.0f, 0.0f));
+			physz1->SetForces(Vector3<float>(0.0f, 4000.0f, 0.0f));
 		if (Input::isKeyPressed(Input::S))
-			physz->SetForces(Vector3<float>(0.0f, -4000.0f, 0.0f));
+			physz1->SetForces(Vector3<float>(0.0f, -4000.0f, 0.0f));
 		if (Input::isKeyPressed(Input::D))
-			physz->SetForces(Vector3<float>(4000.0f, 0.0f, 0.0f));
+			physz1->SetForces(Vector3<float>(4000.0f, 0.0f, 0.0f));
 		if (Input::isKeyPressed(Input::A))
-			physz->SetForces(Vector3<float>(-4000.0f, 0.0f, 0.0f));
+			physz1->SetForces(Vector3<float>(-4000.0f, 0.0f, 0.0f));
 		if (Input::isKeyPressed(Input::Up))
-			physz->SetForces(Vector3<float>(0.0f, 0.0f, -4000.0f));
+			physz2->SetForces(Vector3<float>(0.0f, 4000.0f, 0.0f));
 		if (Input::isKeyPressed(Input::Down))
-			physz->SetForces(Vector3<float>(0.0f, 0.0f, 4000.0f));
+			physz2->SetForces(Vector3<float>(0.0f, -4000.0f, 0.0f));
+		if (Input::isKeyPressed(Input::Right))
+			physz2->SetForces(Vector3<float>(4000.0f, 0.0f, 0.0f));
+		if (Input::isKeyPressed(Input::Left))
+			physz2->SetForces(Vector3<float>(-4000.0f, 0.0f, 0.0f));
 
 
-		x++;
-		float al = ((transComp->GetOrigin()[0] - transComp2->GetOrigin()[0])*(transComp->GetOrigin()[0] - transComp2->GetOrigin()[0]));
-		float ad = ((transComp->GetOrigin()[1] - transComp2->GetOrigin()[1])*(transComp->GetOrigin()[1] - transComp2->GetOrigin()[1]));
-		if (sqrt(al + ad) < 50)
-		{
-			//if (x < 5)
-			//	;
-			//else
-			physz->collision = true;
-			std::cout << "Collision!"<< std::endl;
-			x = 0;
-		}
+
+		//float al = ((transComp->GetOrigin()[0] - transComp2->GetOrigin()[0])*(transComp->GetOrigin()[0] - transComp2->GetOrigin()[0]));
+		//float ad = ((transComp->GetOrigin()[1] - transComp2->GetOrigin()[1])*(transComp->GetOrigin()[1] - transComp2->GetOrigin()[1]));
+		//if (sqrt(al + ad) < 50)
+		//{
+		//	std::cout << "Collision!"<< std::endl;
+		//}
 			
 		if (Input::isKeyPressed(Input::Escape))
 			break;
@@ -117,9 +126,19 @@ int main()
 
 		
 
-		if (Input::isKeyPressed(Input::Space))
-			physz->collision = true;
-		//kokeilua asd
+		if (Input::isKeyPressed(Input::Space) && boool == false)
+		{
+			obj3->AddComponent(physz3); 
+			boool = true;
+		}
+		
+		if (Input::isKeyPressed(Input::F) && boool == true)
+		{
+			obj3->DeleteComponent(physz3);
+			boool = false;
+		}
+			
+
 		
 		
 
@@ -130,7 +149,7 @@ int main()
 
 		ElapsedMilliseconds.QuadPart *= 1000000;
 		double as = ElapsedMilliseconds.QuadPart /= Frequency.QuadPart;
-		PS->deltaTime = (as / 1000000);
+		//PS->deltaTime = (as / 1000000);
 		std::cout << " deltat: " << as/1000000 << " s"<<std::endl;
 	}
 	

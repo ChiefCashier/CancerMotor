@@ -29,6 +29,11 @@ Vector3<float> Physics::GetSpeed()
 	return speed;
 }
 
+Vector3<float> Physics::GetAngularSpeed()
+{
+	return angularSpeed;
+}
+
 Vector3<float> Physics::GetForces()
 {
 	return forces;
@@ -47,6 +52,11 @@ void Physics::SetElasticity(float e)
 void Physics::SetSpeed(Vector3<float> s)
 {
 	speed = s;
+}
+
+void Physics::SetAngularSpeed(Vector3<float> s)
+{
+	angularSpeed = s;
 }
 
 void Physics::SetForces(Vector3<float> f)

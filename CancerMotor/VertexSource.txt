@@ -1,9 +1,12 @@
-attribute vec3 attrColor;
-attribute vec3 attrPosition;
-attribute vec2 attrTexCoord;
+#version 330
 
-varying vec3 varyColor;
-varying vec2 vTexCoord;
+layout(location = 0) in vec3 attrPosition; 
+layout(location = 1) in vec3 attrColor;
+layout(location = 2) in vec2 attrTexCoord;
+
+out vec3 varyColor;
+out vec2 vTexCoord;
+
 uniform mat4 unifProjection;
 uniform mat4 unifWorld;
 uniform mat4 unifCamera;

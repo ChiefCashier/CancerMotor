@@ -119,17 +119,17 @@ RenderingContext::~RenderingContext()
 
 void RenderingContext::CreateAttributes()
 {
-	_positionIndex = glGetAttribLocation(_program, "attrPosition");
-	assert(_positionIndex >= 0);
-	glEnableVertexAttribArray(_positionIndex);
-
-	_colorIndex = glGetAttribLocation(_program, "attrColor");
-	assert(_colorIndex >= 0);
-	glEnableVertexAttribArray(_colorIndex);
-
-	_textureIndex = glGetAttribLocation(_program, "attrTexCoord");
-	assert(_textureIndex >= 0);
-	glEnableVertexAttribArray(_textureIndex);
+	//_positionIndex = glGetAttribLocation(_program, "attrPosition");
+	//assert(_positionIndex >= 0);
+	//glEnableVertexAttribArray(_positionIndex);
+	//
+	//_colorIndex = glGetAttribLocation(_program, "attrColor");
+	//assert(_colorIndex >= 0);
+	//glEnableVertexAttribArray(_colorIndex);
+	//
+	//_textureIndex = glGetAttribLocation(_program, "attrTexCoord");
+	//assert(_textureIndex >= 0);
+	//glEnableVertexAttribArray(_textureIndex);
 
 	_samplerLocation = glGetUniformLocation(_program, "myTexture");
 	assert(_samplerLocation >= 0);
@@ -161,8 +161,10 @@ void RenderingContext::GLFinish()
 	glClearColor(0.2f, 0.4f, 0.8f, 1.0f);
 
 	glEnable(GL_DEPTH_TEST);
-
+	
 	glEnable(GL_BLEND);
-
+	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//
+	//glEnable(GL_CULL_FACE);
 }

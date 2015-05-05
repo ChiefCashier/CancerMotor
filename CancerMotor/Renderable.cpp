@@ -22,6 +22,7 @@ void Renderable::init(Object* tempObj)
 
 	vertexBuffer = tempObj->vertexBuffer;
 	indexBuffer = tempObj->indexBuffer;
+	vertexArray = tempObj->vertexArray;
 
 	alphaChannel = 0;
 }

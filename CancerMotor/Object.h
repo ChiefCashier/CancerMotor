@@ -15,6 +15,7 @@ public:
 
 	GLuint vertexBuffer;
 	GLuint indexBuffer;
+	GLuint vertexArray;
 
 private:
 

@@ -3,6 +3,7 @@
 #include "Physics.h"
 #include "glm\common.hpp"
 #include <vector>
+#include <map>
 class PhysicsSystem : public System
 {
 public:
@@ -11,8 +12,11 @@ public:
 	~PhysicsSystem();
 
 	void AddPhysicsComponent(Physics* physComp);
+	void DeletePhysicsComponent(Physics* physComp);
 	void Update(){ Update(deltaTime); };
 	void Update(double deltaTime);
+
+	void UpdateCollisionMap(Physics* comp);
 
 	double deltaTime;
 
@@ -23,11 +27,16 @@ private:
 	void UpdateSpeed(Physics* comp);
 	
 	int it;
+	int fo;
+	int to;
 
 	float gravity;
 
 	std::vector<Physics*> physicsComponents;
 	std::vector<Physics*>::iterator PCIT;
 	std::vector<Physics*>::iterator PCIT2;
+
+
+	std::map<unsigned int, unsigned int> CollisionMap;
 };
 

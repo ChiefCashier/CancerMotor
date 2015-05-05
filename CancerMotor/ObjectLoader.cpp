@@ -85,9 +85,9 @@ Object* ObjectLoader::LoadObject(char* GameObjectName)
 			vertices[i * 8 + 0] = vPosition.at(index.at(i) - 1).x;
 			vertices[i * 8 + 1] = vPosition.at(index.at(i) - 1).y;
 			vertices[i * 8 + 2] = vPosition.at(index.at(i) - 1).z;
-			vertices[i * 8 + 3] = 0.0f;//*/ 0.74f;
-			vertices[i * 8 + 4] = 0.0f;//*/ 0.12f;
-			vertices[i * 8 + 5] = 0.0f;//*/ 0.25f;
+			vertices[i * 8 + 3] = /*0.0f;//*/ 0.74f;
+			vertices[i * 8 + 4] = /*0.0f;//*/ 0.12f;
+			vertices[i * 8 + 5] = /*0.0f;//*/ 0.25f;
 			vertices[i * 8 + 6] = tPosition.at(g).x;
 			vertices[i * 8 + 7] = tPosition.at(g).y;
 		}
@@ -98,12 +98,18 @@ Object* ObjectLoader::LoadObject(char* GameObjectName)
 		{
 			indices[i] = i;
 		}
+
+		
+
 	}
 
 	Buffer b = Buffer();
+	
 
 	indexBuffer = b.CreateIndexBuffer(indices, uvIndex.size());
 	vertexBuffer = b.CreateVertexBuffer(vertices, uvIndex.size());
+
+	vertexArray = b.CreateVertexArray(vertexBuffer, indexBuffer, indices, vertices, uvIndex.size());
 
 
 	Object* returnObj = new Object();
@@ -114,7 +120,7 @@ Object* ObjectLoader::LoadObject(char* GameObjectName)
 	returnObj->_vertices = vertices;
 	returnObj->indexBuffer = indexBuffer;
 	returnObj->vertexBuffer = vertexBuffer;
-
+	returnObj->vertexArray = vertexArray;
 
 	return returnObj;
 }
