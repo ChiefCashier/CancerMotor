@@ -38,6 +38,10 @@ Vector3<float> Physics::GetForces()
 {
 	return forces;
 }
+float Physics::GetFriction()
+{
+	return friction;
+}
 
 void Physics::SetMass(float m)
 {
@@ -62,4 +66,9 @@ void Physics::SetAngularSpeed(Vector3<float> s)
 void Physics::SetForces(Vector3<float> f)
 {
 	forces = f;
+}
+
+void Physics::SetFriction(float f)
+{
+	friction = f;
 }

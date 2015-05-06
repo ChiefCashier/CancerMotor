@@ -28,6 +28,7 @@ void PhysicsSystem::Update(double deltaT)
 			PCIT++; 
 		}
 	}
+
 	PCIT = physicsComponents.begin();
 	while (PCIT != physicsComponents.end())
 	{
@@ -60,35 +61,38 @@ void PhysicsSystem::UpdateSpeed(Physics* comp)
 	{
 		comp->SetSpeed(Vector3<float>(comp->GetSpeed().x, -std::abs(comp->GetSpeed().y * comp->GetElasticity()), comp->GetSpeed().z));
 		comp->SetForces(Vector3<float>(comp->GetForces().x, comp->GetForces().y - gravity * comp->GetMass(), comp->GetForces().z));
+		UpdateAngularSpeed(comp, 0);
 	}
 
 	if (GO->GetComponent<Transformable>()->GetOrigin()[1] + comp->GetSpeed().y * deltaTime < -80)
 	{
 		comp->SetSpeed(Vector3<float>(comp->GetSpeed().x, std::abs(comp->GetSpeed().y * comp->GetElasticity()), comp->GetSpeed().z));
 		comp->SetForces(Vector3<float>(comp->GetForces().x, comp->GetForces().y + gravity * comp->GetMass(), comp->GetForces().z));
+		UpdateAngularSpeed(comp, 0);
 	}
 
 	if (GO->GetComponent<Transformable>()->GetOrigin()[0] + comp->GetSpeed().x * deltaTime < -120)
 	{
 		comp->SetSpeed(Vector3<float>(std::abs(comp->GetSpeed().x * comp->GetElasticity()), comp->GetSpeed().y, comp->GetSpeed().z));
-
+		UpdateAngularSpeed(comp, 1);
 	}
 
 	if (GO->GetComponent<Transformable>()->GetOrigin()[0] + comp->GetSpeed().x * deltaTime >  120)
 	{
 		comp->SetSpeed(Vector3<float>(-std::abs(comp->GetSpeed().x * comp->GetElasticity()), comp->GetSpeed().y, comp->GetSpeed().z));
-
+		UpdateAngularSpeed(comp, 1);
 	}
 
 	if (GO->GetComponent<Transformable>()->GetOrigin()[2] + comp->GetSpeed().z * deltaTime < -400)
 	{
 		comp->SetSpeed(Vector3<float>(comp->GetSpeed().x, comp->GetSpeed().y, std::abs(comp->GetSpeed().z * comp->GetElasticity())));
-
+		UpdateAngularSpeed(comp, 2);
 	}
 
 	if (GO->GetComponent<Transformable>()->GetOrigin()[2] + comp->GetSpeed().z * deltaTime > -100)
 	{
 		comp->SetSpeed(Vector3<float>(comp->GetSpeed().x, comp->GetSpeed().y, -std::abs(comp->GetSpeed().z * comp->GetElasticity())));
+		UpdateAngularSpeed(comp, 2);
 	}
 
 
@@ -116,7 +120,31 @@ void PhysicsSystem::UpdateSpeed(Physics* comp)
 		GO->GetComponent<Transformable>()->GetRotation()[2] + comp->GetAngularSpeed().z * deltaTime
 		);
 }
+void PhysicsSystem::UpdateAngularSpeed(Physics* comp, int x)
+{
+	Vector3<float> angularVec = comp->GetAngularSpeed();
+	Vector3<float> speedVec = comp->GetSpeed();
 
+	switch (x)
+	{
+		case 0:
+			comp->SetSpeed(Vector3<float>(speedVec.x - angularVec.z * comp->GetFriction() * deltaTime, speedVec.y, speedVec.z + angularVec.x * comp->GetFriction() * deltaTime));
+			comp->SetAngularSpeed(Vector3<float>(angularVec.x, angularVec.y, angularVec.z - angularVec.z * comp->GetFriction()* deltaTime));
+			break;
+	
+		case 1:
+			comp->SetSpeed(Vector3<float>(speedVec.x, speedVec.y - angularVec.x  * comp->GetFriction() * deltaTime, speedVec.z + angularVec.y  * comp->GetFriction() * deltaTime));
+			comp->SetAngularSpeed(Vector3<float>(angularVec.x - angularVec.x * comp->GetFriction()* deltaTime, angularVec.y, angularVec.z));
+			break;
+	
+		case 2:
+			comp->SetSpeed(Vector3<float>(speedVec.x - angularVec.z * comp->GetFriction() * deltaTime, speedVec.y - angularVec.x * comp->GetFriction() * deltaTime, speedVec.z));
+			comp->SetAngularSpeed(Vector3<float>(angularVec.x - angularVec.x * comp->GetFriction() * deltaTime, angularVec.y, angularVec.z - angularVec.z * comp->GetFriction()* deltaTime));
+			break;
+	}
+
+
+}
 void PhysicsSystem::UpdateForces(Physics* comp)
 {
 	comp->SetForces(Vector3<float>(
@@ -124,8 +152,6 @@ void PhysicsSystem::UpdateForces(Physics* comp)
 		comp->GetForces().y - gravity * comp->GetMass(),
 		comp->GetForces().z
 		));
-	//if (comp->GetSpeed().x < 0.3 && comp->GetSpeed().y < 0.3 && comp->GetSpeed().z < 0.3)
-	//	comp->SetSpeed(Vector3<float>(0, 0, 0));
 }
 
 void PhysicsSystem::UpdateCollisionMap(Physics* comp)

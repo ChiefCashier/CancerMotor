@@ -25,7 +25,8 @@ private:
 	void Collision(Physics* comp);
 	void UpdateForces(Physics* comp);
 	void UpdateSpeed(Physics* comp);
-	
+	void UpdateAngularSpeed(Physics* comp, int x);
+
 	int it;
 	int fo;
 	int to;

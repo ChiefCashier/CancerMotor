@@ -50,12 +50,12 @@ int main()
 	Transformable* transComp3 = ComponentFactory::CreateTransformable();
 
 	
-	physz2->SetMass(5.0);
-	physz1->SetAngularSpeed(Vector3<float>(0,100,0));
-
-	physz2->SetElasticity(0.5);
-	physz1->SetElasticity(0.5);
-	physz3->SetElasticity(0.5);
+	physz2->SetMass(50);
+	physz1->SetAngularSpeed(Vector3<float>(0,0,100));
+	physz2->SetAngularSpeed(Vector3<float>(0, 100, 0));
+	physz2->SetElasticity(0.3);
+	physz1->SetElasticity(1.0);
+	physz3->SetElasticity(1.0);
 	//
 	//
 	obj->AddComponent(rendComp);

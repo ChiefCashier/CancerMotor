@@ -14,12 +14,14 @@ public:
 	Vector3<float> GetSpeed();
 	Vector3<float> GetAngularSpeed();
 	Vector3<float> GetForces();
+	float GetFriction();
 	
 	void SetMass(float m);
 	void SetElasticity(float e);
 	void SetSpeed(Vector3<float> s);
 	void SetForces(Vector3<float> f);
 	void SetAngularSpeed(Vector3<float> as);
+	void SetFriction(float f);
 
 	bool collision;
 
@@ -27,6 +29,7 @@ private:
 
 	float mass;
 	float elasticity;
+	float friction;
 
 	Vector3<float> speed;
 	Vector3<float> angularSpeed;

@@ -46,6 +46,7 @@ public:
 		temp->SetMass(10);
 		temp->SetSpeed(Vector3<float>(0.0f, 0.0f, 0.0f));
 		temp->SetAngularSpeed(Vector3<float>(0.0f, 0.0f, 0.0f));
+		temp->SetFriction(0.1);
 		asd->AddPhysicsComponent(temp);
 		return temp;
 	};
