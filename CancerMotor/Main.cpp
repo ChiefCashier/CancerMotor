@@ -70,8 +70,8 @@ int main()
 	obj3->AddComponent(transComp3);
 	//obj3->AddComponent(physz3);
 	//
-	transComp3->SetOrigin(-100, 0, -200.0f);
-	transComp2->SetOrigin(100, 0, -200.0f);
+	transComp3->SetOrigin(0, -500, -200.0f);
+	transComp2->SetOrigin(10, 60, -200.0f);
 	transComp->SetOrigin(0, 0, -200.0f);
 	//
 	//
@@ -131,10 +131,25 @@ int main()
 			obj3->DeleteComponent(physz3);
 			boool = false;
 		}
-			
 
-		
-		
+		if (Input::isKeyPressed(Input::Y))
+		{
+			PS->SetGravity(0);
+		}
+		if (Input::isKeyPressed(Input::L))
+		{
+			float hax = (PS->deltaTime * 0.90);
+			PS->deltaTime = hax;
+		}
+		if (Input::isKeyPressed(Input::T))
+		{
+			PS->deltaTime = PS->deltaTime * 1.1;
+		}
+		if (Input::isKeyPressed(Input::R))
+		{
+			float hax = (PS->deltaTime * -1);
+			PS->deltaTime = hax;
+		}
 
 		SM->UpdateSystems();
 

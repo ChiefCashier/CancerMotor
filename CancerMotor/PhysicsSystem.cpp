@@ -197,7 +197,7 @@ void PhysicsSystem::Collision(Physics* comp)
 			int i = 2;
 			Transformable* trans1 = GO->GetComponent<Transformable>();
 			Transformable* trans2 = GO2->GetComponent<Transformable>();
-			if (std::cbrt(std::pow(deltax, 2) + std::pow(deltay, 2) + std::pow(deltaz, 2)) <= 15)
+			if (std::cbrt(std::pow(deltax, 2) + std::pow(deltay, 2) + std::pow(deltaz, 2)) < 15)
 			{ 
 				while(colision)
 				{
@@ -218,8 +218,6 @@ void PhysicsSystem::Collision(Physics* comp)
 					}
 					if (i > 100)
 					{
-						//trans1->SetOrigin(trans1->GetOrigin()[0] ,trans1->GetOrigin()[1], trans1->GetOrigin()[2]);
-						//trans2->SetOrigin(trans2->GetOrigin()[0] ,trans2->GetOrigin()[1], trans2->GetOrigin()[2]);
 						colision = false;
 					}
 				}
@@ -240,9 +238,9 @@ void PhysicsSystem::Collision(Physics* comp)
 
 				if (abs(asd.x - asd2.x) < 5)
 					if (asd.x - asd2.x < 0)
-						angle = 3.14 / 2;
-					else
 						angle = 3.14 / 4;
+					else
+						angle = 3.14 / 2;
 
 				//GO->GetComponent<Transformable>()->SetOrigin(
 				//	GO->GetComponent<Transformable>()->GetOrigin()[0] - 50 * sin(angle)* deltaTime,

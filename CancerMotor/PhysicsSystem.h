@@ -18,6 +18,8 @@ public:
 
 	void UpdateCollisionMap(Physics* comp);
 
+
+	void SetGravity(float g){ gravity = g; };
 	double deltaTime;
 
 private:
