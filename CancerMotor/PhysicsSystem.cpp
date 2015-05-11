@@ -165,7 +165,6 @@ void PhysicsSystem::UpdateCollisionMap(Physics* comp)
 		float deltax = GO->GetComponent<Transformable>()->GetOrigin()[0] - GO2->GetComponent<Transformable>()->GetOrigin()[0] + comp->GetSpeed().x * deltaTime + (*PCIT2)->GetSpeed().x * deltaTime;
 		float deltay = GO->GetComponent<Transformable>()->GetOrigin()[1] - GO2->GetComponent<Transformable>()->GetOrigin()[1] + comp->GetSpeed().y * deltaTime + (*PCIT2)->GetSpeed().y * deltaTime;
 		float deltaz = GO->GetComponent<Transformable>()->GetOrigin()[2] - GO2->GetComponent<Transformable>()->GetOrigin()[2] + comp->GetSpeed().z * deltaTime + (*PCIT2)->GetSpeed().z * deltaTime;
-	
 	}
 }
 
@@ -193,13 +192,38 @@ void PhysicsSystem::Collision(Physics* comp)
 			float deltay2 = GO->GetComponent<Transformable>()->GetOrigin()[1] - GO2->GetComponent<Transformable>()->GetOrigin()[1] + comp->GetSpeed().y * deltaTime * 2 + (*PCIT2)->GetSpeed().y * deltaTime * 2;
 			float deltaz2 = GO->GetComponent<Transformable>()->GetOrigin()[2] - GO2->GetComponent<Transformable>()->GetOrigin()[2] + comp->GetSpeed().z * deltaTime * 2 + (*PCIT2)->GetSpeed().z * deltaTime * 2;
 
-			//if (std::cbrt(deltax2 * deltax2 + deltay2 * deltay2 + deltaz2 * deltaz2) > 15)
-			{
-				
-			}
-			if (std::cbrt(std::pow(deltax, 2) + std::pow(deltay, 2) + std::pow(deltaz,2)) <= 15)
-			{
-				
+
+			bool colision = true;
+			int i = 2;
+			Transformable* trans1 = GO->GetComponent<Transformable>();
+			Transformable* trans2 = GO2->GetComponent<Transformable>();
+			if (std::cbrt(std::pow(deltax, 2) + std::pow(deltay, 2) + std::pow(deltaz, 2)) <= 15)
+			{ 
+				while(colision)
+				{
+					float deltax = GO->GetComponent<Transformable>()->GetOrigin()[0] - GO2->GetComponent<Transformable>()->GetOrigin()[0] + comp->GetSpeed().x * (deltaTime / i) + (*PCIT2)->GetSpeed().x * (deltaTime / i);
+					float deltay = GO->GetComponent<Transformable>()->GetOrigin()[1] - GO2->GetComponent<Transformable>()->GetOrigin()[1] + comp->GetSpeed().y * (deltaTime / i) + (*PCIT2)->GetSpeed().y * (deltaTime / i);
+					float deltaz = GO->GetComponent<Transformable>()->GetOrigin()[2] - GO2->GetComponent<Transformable>()->GetOrigin()[2] + comp->GetSpeed().z * (deltaTime / i) + (*PCIT2)->GetSpeed().z * (deltaTime / i);
+
+
+					float x = std::cbrt(std::pow(deltax, 2) + std::pow(deltay, 2) + std::pow(deltaz, 2));
+					if (x < 15)
+						i += 2;
+					else
+					{	
+						trans1->SetOrigin(trans1->GetOrigin()[0] + comp->GetSpeed().x * (deltaTime / i), trans1->GetOrigin()[1] + comp->GetSpeed().y * (deltaTime / i),trans1->GetOrigin()[2] + comp->GetSpeed().z * (deltaTime / i));
+						trans2->SetOrigin(trans2->GetOrigin()[0] + comp->GetSpeed().x * (deltaTime / i), trans2->GetOrigin()[1] + comp->GetSpeed().y * (deltaTime / i), trans2->GetOrigin()[2] + comp->GetSpeed().z * (deltaTime / i));
+						colision = false;
+						
+					}
+					if (i > 100)
+					{
+						//trans1->SetOrigin(trans1->GetOrigin()[0] ,trans1->GetOrigin()[1], trans1->GetOrigin()[2]);
+						//trans2->SetOrigin(trans2->GetOrigin()[0] ,trans2->GetOrigin()[1], trans2->GetOrigin()[2]);
+						colision = false;
+					}
+				}
+		
 				std::cout << "collision" << std::endl;
 				Vector3<float> asd(GO->GetComponent<Transformable>()->GetOrigin()[0], GO->GetComponent<Transformable>()->GetOrigin()[1], GO->GetComponent<Transformable>()->GetOrigin()[2]);
 
@@ -207,13 +231,14 @@ void PhysicsSystem::Collision(Physics* comp)
 
 			
 				float angle = atan((asd.x - asd2.x) / (asd.y - asd2.y));
-				if (abs(asd.y - asd2.y) < 1)
+
+				if (abs(asd.y - asd2.y) < 5)
 					if (asd.y - asd2.y < 0)
 						angle = 0;
 					else
 						angle = 3.14;
 
-				if (abs(asd.x - asd2.x) < 0.5)
+				if (abs(asd.x - asd2.x) < 5)
 					if (asd.x - asd2.x < 0)
 						angle = 3.14 / 2;
 					else
@@ -244,8 +269,8 @@ void PhysicsSystem::Collision(Physics* comp)
 				float BaN = ((comp->GetMass() - (*PCIT2)->GetElasticity() * (*PCIT2)->GetMass()) / (comp->GetMass() + (*PCIT2)->GetMass())) * BbN;
 				BaN += (((1 + comp->GetElasticity()) * (*PCIT2)->GetMass()) / (comp->GetMass() + (*PCIT2)->GetMass())) * AbN;
 
-				comp->SetSpeed(Vector3<float>(AaN * cos(angle) + AbT * sin(-angle), AaN * sin(angle) + AbT * cos(angle), comp->GetSpeed().z));
-				(*PCIT2)->SetSpeed(Vector3<float>(BaN * cos(angle) + BbT * sin(-angle), BaN * sin(angle) + BbT * cos(angle), (*PCIT2)->GetSpeed().z));
+				comp->SetSpeed(Vector3<float>((AaN * cos(angle) + AbT * sin(-angle)), (AaN * sin(angle) + AbT * cos(angle)), comp->GetSpeed().z));
+				(*PCIT2)->SetSpeed(Vector3<float>((BaN * cos(angle) + BbT * sin(-angle)), (BaN * sin(angle) + BbT * cos(angle)), (*PCIT2)->GetSpeed().z));
 				//comp->SetForces(Vector3<float>(comp->GetForces().x, comp->GetForces().y + gravity * comp->GetMass(), comp->GetForces().z));
 				UpdateSpeed(comp);
 				//UpdateSpeed((*PCIT2));

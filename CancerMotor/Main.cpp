@@ -50,10 +50,10 @@ int main()
 	Transformable* transComp3 = ComponentFactory::CreateTransformable();
 
 	
-	physz2->SetMass(50);
-	physz1->SetAngularSpeed(Vector3<float>(0,0,100));
-	physz2->SetAngularSpeed(Vector3<float>(0, 100, 0));
-	physz2->SetElasticity(0.3);
+	physz2->SetMass(10);
+	//physz1->SetAngularSpeed(Vector3<float>(0,0,100));
+	//physz2->SetAngularSpeed(Vector3<float>(0, 100, 0));
+	physz2->SetElasticity(1.0);
 	physz1->SetElasticity(1.0);
 	physz3->SetElasticity(1.0);
 	//
@@ -112,12 +112,6 @@ int main()
 
 
 
-		//float al = ((transComp->GetOrigin()[0] - transComp2->GetOrigin()[0])*(transComp->GetOrigin()[0] - transComp2->GetOrigin()[0]));
-		//float ad = ((transComp->GetOrigin()[1] - transComp2->GetOrigin()[1])*(transComp->GetOrigin()[1] - transComp2->GetOrigin()[1]));
-		//if (sqrt(al + ad) < 50)
-		//{
-		//	std::cout << "Collision!"<< std::endl;
-		//}
 			
 		if (Input::isKeyPressed(Input::Escape))
 			break;
