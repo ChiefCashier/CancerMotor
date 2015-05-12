@@ -1,0 +1,51 @@
+﻿Build started 5/13/2015 1:31:48 AM.
+     1>Project "C:\Users\Omistaja\Desktop\Dalmuti-master\CancerMotor\CancerMotor\CancerMotor.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
+         Main.cpp
+     1>c:\users\omistaja\desktop\dalmuti-master\cancermotor\cancermotor\Vector3.h : warning C4819: The file contains a character that cannot be represented in the current code page (932). Save the file in Unicode format to prevent data loss
+     1>c:\users\omistaja\desktop\dalmuti-master\cancermotor\cancermotor\ComponentFactory.h(49): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Main.cpp(29): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Main.cpp(133): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Main.cpp(138): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>Main.cpp(148): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>Main.cpp(153): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>Main.cpp(157): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>Main.cpp(166): warning C4244: 'initializing' : conversion from 'LONGLONG' to 'double', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Omistaja\Desktop\Dalmuti-master\CancerMotor\Release\CancerMotor.exe" /INCREMENTAL:NO /NOLOGO FreeImaged.lib LibJXR.lib glew32d.lib glew32sd.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Omistaja\Desktop\Dalmuti-master\CancerMotor\Release\CancerMotor.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /ENTRY:"mainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Omistaja\Desktop\Dalmuti-master\CancerMotor\Release\CancerMotor.lib" /MACHINE:X86 /SAFESEH Release\Image.obj
+         Release\Input.obj
+         Release\SystemManager.obj
+         Release\Window.obj
+         Release\Component.obj
+         Release\Main.obj
+         Release\GameObject.obj
+         Release\Object.obj
+         Release\ObjectLoader.obj
+         Release\Physics.obj
+         Release\PhysicsSystem.obj
+         Release\Renderable.obj
+         Release\RenderingContext.obj
+         Release\RenderingSystem.obj
+         Release\Resource.obj
+         Release\ResourceLoader.obj
+         Release\ResourceManager.obj
+         Release\Transformable.obj
+         Release\WriteToFile.obj
+     1>Image.obj : error LNK2001: unresolved external symbol __imp__glBindTexture@8
+     1>Image.obj : error LNK2001: unresolved external symbol __imp__glTexImage2D@36
+     1>Image.obj : error LNK2001: unresolved external symbol __imp__glTexParameteri@12
+     1>Image.obj : error LNK2001: unresolved external symbol __imp__glGenTextures@8
+     1>RenderingContext.obj : error LNK2001: unresolved external symbol __imp__wglCreateContext@4
+     1>RenderingContext.obj : error LNK2001: unresolved external symbol __imp__glClearColor@16
+     1>RenderingContext.obj : error LNK2001: unresolved external symbol __imp__wglMakeCurrent@8
+     1>RenderingContext.obj : error LNK2001: unresolved external symbol __imp__glBlendFunc@8
+     1>RenderingContext.obj : error LNK2001: unresolved external symbol __imp__glEnable@4
+     1>RenderingSystem.obj : error LNK2001: unresolved external symbol __imp__glClear@4
+     1>RenderingSystem.obj : error LNK2001: unresolved external symbol __imp__glDrawElements@16
+     1>C:\Users\Omistaja\Desktop\Dalmuti-master\CancerMotor\Release\CancerMotor.exe : fatal error LNK1120: 11 unresolved externals
+     1>Done Building Project "C:\Users\Omistaja\Desktop\Dalmuti-master\CancerMotor\CancerMotor\CancerMotor.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.43

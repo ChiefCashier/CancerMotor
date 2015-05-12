@@ -158,7 +158,7 @@ void RenderingContext::CreatePerspective(Window *window)
 
 void RenderingContext::GLFinish()
 {
-	glClearColor(0.2f, 0.4f, 0.8f, 1.0f);
+	glClearColor(0.7f, 0.2f, 0.1f, 1.0f);
 
 	glEnable(GL_DEPTH_TEST);
 	

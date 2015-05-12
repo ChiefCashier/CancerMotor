@@ -13,6 +13,7 @@
 #include "PhysicsSystem.h"
 #include "Vector3.h"
 #include "SystemManager.h"
+#include <vector>
 
 RenderingContext* rendContext;
 
@@ -34,52 +35,50 @@ int main()
 	LARGE_INTEGER Frequency;
 
 	GameObject* obj = new GameObject("pallo.obj");
-	GameObject* obj2 = new GameObject("pallo.obj");
-	GameObject* obj3 = new GameObject("pallo.obj");
-	//
-	Renderable* rendComp = ComponentFactory::CreateRenderable("pallo.obj", "sample.png");
-	Renderable* rendComp2 = ComponentFactory::CreateRenderable("pallo.obj", "tribaltatuointi.png");
-	Renderable* rendComp3 = ComponentFactory::CreateRenderable("pallo.obj", "tribaltatuointi.png");
-	//
-	Physics* physz1 = ComponentFactory::CreatePhysicsComponent(PS);
-	Physics* physz2 = ComponentFactory::CreatePhysicsComponent(PS);
-	Physics* physz3 = ComponentFactory::CreatePhysicsComponent(PS);
-	//
-	Transformable* transComp = ComponentFactory::CreateTransformable();
-	Transformable* transComp2 = ComponentFactory::CreateTransformable();
-	Transformable* transComp3 = ComponentFactory::CreateTransformable();
 
+	Renderable* rendComp = ComponentFactory::CreateRenderable("pallo.obj", "sample.png");
+
+	Physics* physz1 = ComponentFactory::CreatePhysicsComponent(PS);
+
+	Transformable* transComp = ComponentFactory::CreateTransformable();
+
+
+	std::vector<GameObject*> GOS;
+
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 50; j++)
+		{	
+		GameObject* objs = new GameObject("pallo.obj");
+		Renderable* rendComps = ComponentFactory::CreateRenderable("pallo.obj", "sample.png");
+		//Physics* physzs = ComponentFactory::CreatePhysicsComponent(PS);
+		//Transformable* transComps = ComponentFactory::CreateTransformable();
+		objs->AddComponent(rendComps);
+		//objs->AddComponent(transComps);
+		//objs->AddComponent(physzs);
+		GOS.push_back(objs);
+		}		
+
+	}
 	
-	physz2->SetMass(10);
-	//physz1->SetAngularSpeed(Vector3<float>(0,0,100));
-	//physz2->SetAngularSpeed(Vector3<float>(0, 100, 0));
-	physz2->SetElasticity(1.0);
+
 	physz1->SetElasticity(1.0);
-	physz3->SetElasticity(1.0);
-	//
-	//
+
+
 	obj->AddComponent(rendComp);
 	obj->AddComponent(transComp);
 	obj->AddComponent(physz1);
-	
-	obj2->AddComponent(rendComp2);
-	obj2->AddComponent(transComp2);
-	obj2->AddComponent(physz2);
-	
-	obj3->AddComponent(rendComp3);
-	obj3->AddComponent(transComp3);
-	//obj3->AddComponent(physz3);
-	//
-	transComp3->SetOrigin(0, -500, -200.0f);
-	transComp2->SetOrigin(10, 60, -200.0f);
-	transComp->SetOrigin(0, 0, -200.0f);
-	//
-	//
-	RS->Draw(obj);
-	RS->Draw(obj2);
-	RS->Draw(obj3);
-	bool boool = false;
+	transComp->SetOrigin(0, 100, -200.0f);
 
+	RS->Draw(obj);
+
+	for (int i = 0; i < 10; i++)
+	{
+		RS->Draw(GOS.at(i));
+	}
+
+
+	int houboxu = 0;
 	while (true)
 	{
 		QueryPerformanceFrequency(&Frequency);
@@ -102,40 +101,38 @@ int main()
 		if (Input::isKeyPressed(Input::A))
 			physz1->SetForces(Vector3<float>(-4000.0f, 0.0f, 0.0f));
 		if (Input::isKeyPressed(Input::Up))
-			physz2->SetForces(Vector3<float>(0.0f, 4000.0f, 0.0f));
+			physz1->SetForces(Vector3<float>(0.0f, 0.0f, -4000.0f));
 		if (Input::isKeyPressed(Input::Down))
-			physz2->SetForces(Vector3<float>(0.0f, -4000.0f, 0.0f));
-		if (Input::isKeyPressed(Input::Right))
-			physz2->SetForces(Vector3<float>(4000.0f, 0.0f, 0.0f));
+			physz1->SetForces(Vector3<float>(0.0f, 0.0f, 4000.0f));
+
 		if (Input::isKeyPressed(Input::Left))
-			physz2->SetForces(Vector3<float>(-4000.0f, 0.0f, 0.0f));
+			physz1->SetAngularSpeed(Vector3<float>(0.0f, 0.0f, 40.0f));
+		if (Input::isKeyPressed(Input::Right))
+			physz1->SetAngularSpeed(Vector3<float>(0.0f, 0.0f, -40.0f));
 
 
-
-			
 		if (Input::isKeyPressed(Input::Escape))
 			break;
 
-		
-
-		
-
-		if (Input::isKeyPressed(Input::Space) && boool == false)
+		if (Input::isKeyPressed(Input::Space))
 		{
-			obj3->AddComponent(physz3); 
-			boool = true;
-		}
-		
-		if (Input::isKeyPressed(Input::F) && boool == true)
-		{
-			obj3->DeleteComponent(physz3);
-			boool = false;
+
+			GOS.at(houboxu)->AddComponent(ComponentFactory::CreatePhysicsComponent(PS));
+			GOS.at(houboxu)->AddComponent(ComponentFactory::CreateTransformable());
+			GOS.at(houboxu)->GetComponent<Transformable>()->SetOrigin(0, 0, -200.0f);
+			RS->Draw(GOS.at(houboxu));
+			houboxu++;
 		}
 
 		if (Input::isKeyPressed(Input::Y))
 		{
 			PS->SetGravity(0);
 		}
+		if (Input::isKeyPressed(Input::U))
+		{
+			PS->SetGravity(98.1);
+		}
+
 		if (Input::isKeyPressed(Input::L))
 		{
 			float hax = (PS->deltaTime * 0.90);
@@ -145,10 +142,19 @@ int main()
 		{
 			PS->deltaTime = PS->deltaTime * 1.1;
 		}
+
 		if (Input::isKeyPressed(Input::R))
 		{
 			float hax = (PS->deltaTime * -1);
 			PS->deltaTime = hax;
+		}
+		if (Input::isKeyPressed(Input::E))
+		{
+			physz1->SetElasticity(physz1->GetElasticity() * 0.9);
+		}
+		if (Input::isKeyPressed(Input::Q))
+		{
+			physz1->SetElasticity(physz1->GetElasticity() * 1.1);
 		}
 
 		SM->UpdateSystems();
